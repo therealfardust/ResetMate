@@ -1,0 +1,10 @@
+Reset Mate exact endgame test
+
+White to move, White's back rank restored, Black has only a king on e7:
+8/4k3/8/8/8/8/8/RNBQKBNR w - - 0 1
+
+This is a known solvable candidate for the published 20-move White reset pattern.
+The solver searches for one legal sequence of Black replies between White's prescribed moves.
+
+Final target:
+8/8/8/8/8/8/2k5/RNBQKBNR b - - 0 1

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reset Mate Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "chess.js": "https://cdn.jsdelivr.net/npm/chess.js@1.4.0/+esm"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="eyebrow">THE AMAN HAMBLETON RESET MATE</div>
+      <h1>Reset Mate Lab</h1>
+      <p>Build the resources. Find the reset. Finish with the 20-move Qd1#.</p>
+    </div>
+    <a class="github" href="https://github.com/" target="_blank" rel="noreferrer">GitHub-ready</a>
+  </header>
+
+  <main>
+    <section class="hero card">
+      <div class="board-wrap">
+        <div id="board" class="board" aria-label="Chess board"></div>
+        <div class="board-actions">
+          <button id="flipBtn">Flip</button>
+          <button id="resetPositionBtn">Reset position</button>
+          <button id="stepBackBtn">Undo</button>
+        </div>
+      </div>
+
+      <div class="side-panel">
+        <div class="tabs">
+          <button class="tab active" data-tab="solver">Solver</button>
+          <button class="tab" data-tab="trainer">Trainer</button>
+          <button class="tab" data-tab="bot">Bot</button>
+        </div>
+
+        <div id="solver" class="tab-content active">
+          <label for="fen">Position / FEN</label>
+          <textarea id="fen" spellcheck="false"></textarea>
+          <div class="button-row">
+            <button class="primary" id="loadFenBtn">Load FEN</button>
+            <button id="autoPositionBtn">Auto reset position</button>
+          </div>
+          <div id="status" class="status"></div>
+          <div id="resources" class="resources"></div>
+          <div class="result-box" id="solverResult">
+            <strong>Reset-mate checker</strong>
+            <span>Load a position and check whether the canonical sequence can be executed from it.</span>
+          </div>
+          <button class="primary wide" id="checkBtn">Check reset sequence</button>
+          <button class="wide" id="solveEndgameBtn">Find / play reset line</button>
+        </div>
+
+        <div id="trainer" class="tab-content">
+          <div class="result-box">
+            <strong>20-move pattern</strong>
+            <span>White's canonical reset sequence. Black's replies are allowed to vary; the checker searches them.</span>
+          </div>
+          <ol id="moveList" class="move-list"></ol>
+          <div class="button-row">
+            <button class="primary" id="playPatternBtn">Play sequence</button>
+            <button id="nextMoveBtn">Next move</button>
+          </div>
+          <button class="wide" id="resetTrainerBtn">Reset trainer</button>
+        </div>
+
+        <div id="bot" class="tab-content">
+          <div class="result-box">
+            <strong>Reset-aware Stockfish</strong>
+            <span>The browser bot uses Stockfish WASM when available. It analyzes several candidate moves and adds a secondary objective: preserve/recreate the material needed for the reset mate.</span>
+          </div>
+          <label for="depth">Search depth</label>
+          <input id="depth" type="range" min="8" max="20" value="12">
+          <div class="range-label"><span>8</span><span id="depthValue">12</span><span>20</span></div>
+          <button class="primary wide" id="engineBtn">Load Stockfish</button>
+          <button class="wide" id="botMoveBtn" disabled>Find target-aware move</button>
+          <pre id="engineLog" class="engine-log">Engine not loaded.</pre>
+          <p class="small">The web build is deliberately conservative: if the reset plan becomes impossible, it falls back toward normal engine play. The exact endgame checker remains the source of truth for the artistic finish.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card info">
+        <h2>What counts as success?</h2>
+        <p>For White, the restored rank is <code>R N B Q K B N R</code>. The canonical finish is the 20th move, <code>Qd1#</code>, with the opposing king forced onto the final mating square.</p>
+        <p>The published pattern says it works unless the opposing king starts on <code>g3</code>. The black mirror ends in <code>Qd8#</code> and has the analogous <code>g6</code> restriction.</p>
+      </div>
+      <div class="card info">
+        <h2>Resource logic</h2>
+        <div id="resourceDetails"></div>
+        <p class="small">Missing rooks, bishops, or knights can potentially be recreated through pawn promotion. The planner therefore distinguishes “currently present” from “still reconstructable.”</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Reset Mate Lab · local-first chess tool</span>
+    <span>Stockfish is GPLv3; see the repository's license notes before redistributing engine binaries.</span>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
