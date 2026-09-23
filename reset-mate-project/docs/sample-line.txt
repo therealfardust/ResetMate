@@ -1,0 +1,17 @@
+WHITE RESET TEST POSITION
+
+FEN:
+8/4k3/8/8/8/8/8/RNBQKBNR w - - 0 1
+
+White's published 20-move reset pattern:
+1. Qe2  2. Qg2  3. Rh3  4. Rf3  5. Qg4  6. Rf5  7. Qg6  8. Rf6
+9. Qg7  10. Qf8  11. Rd6  12. Rd8  13. Qe7  14. Rd6  15. Qc7
+16. Rd2  17. Rh2  18. Rh1  19. Qd6  20. Qd1#
+
+One legal black-king reply path searched for this test position is:
+f8, f7, f8, e8, e7, e8, e7, d8, e8, d7, c7, c6, b6, c5, b4, b3, b4, b3, c2
+
+Final target:
+8/8/8/8/8/8/2k5/RNBQKBNR b - - 0 1
+
+Final move: Qd1#
